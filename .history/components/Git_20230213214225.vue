@@ -1,7 +1,7 @@
 <template>
     <div>
         <img src="../static/img/git.png" alt="">
-        <p>总计：235 次</p>
+        <p>235 次</p>
     </div>
 </template>
 

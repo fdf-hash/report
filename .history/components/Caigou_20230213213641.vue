@@ -2,8 +2,8 @@
     <div class="box">
         <!-- <img src="../static/img/caigou.png" alt=""> -->
         <div class="item" style="background: #fb051e;">参数设置</div>
-        <div class="item" style="background: #fb051e;">采购过程配置</div>
-        <div class="item" style="background: #fb051e;">采购计划申请</div>
+        <div class="item" style="background: #fb4305;">采购过程配置</div>
+        <div class="item" style="background: #e15121;">采购计划申请</div>
         <div class="item" style="background: #fb051e;">采购计划变更</div>
         <div class="item" style="background: #fb051e;">采购立项</div>
         <div class="item">采购申请</div>

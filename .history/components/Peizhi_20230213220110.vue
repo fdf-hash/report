@@ -1,6 +1,7 @@
 <template>
     <div class="box">
         <img src="../static/img/login.png" alt="" class="img1">
+        <p></p>
         <img src="../static/img/login2.png" alt="" class="img2">
     </div>
 </template>
@@ -10,6 +11,11 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+    }
+    p{
+        width: 2px;
+        background: #ddd;
+        height: 100%;
     }
     .img1{
        width: 300px;

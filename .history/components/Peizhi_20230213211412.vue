@@ -1,7 +1,6 @@
 <template>
     <div>
-        <img src="../static/img/git.png" alt="">
-        <p>总计：235 次</p>
+        <img src="../static/img/login.png" alt="">
     </div>
 </template>
 
@@ -9,6 +8,6 @@
     img{
        width: 450px;
        height: auto; 
-       margin: 10px 0;
+       margin: 20px 0;
     }
 </style>
