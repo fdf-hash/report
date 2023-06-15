@@ -42,6 +42,10 @@ Report on work
 ---
 transition: slide-left
 ---
+# 述 职 报 告
+---
+transition: slide-left
+---
 
 # 工作回顾
 
@@ -63,27 +67,32 @@ transition: slide-left
   </span>
 </div>
 
-<style>
-h1 {
-  background-color: #2B90B6;
-  background-image: block;
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-  font-weight:600;
-}
-</style>
+---
+transition: slide-left
+---
+# 工作回顾
 
-<!--
-Here is another comment.
--->
+## 罚没
+
+- **应用配置-基础配置** - 配置登录页面背景图、Logo、系统名称及系统描述（完成）
+<br>
+
+- **菜单导航栏** - 用户可在本地电脑配置导航栏样式（完成）
+<br>
+
+- **采购管理** - 用于制定采购计划、变更、明细、立项、招投标等流程管理（测试修改BUG）
+<br>
+<br>
+<br>
+<div class="pt-12">
+  <span @click="$slidev.nav.next" class="px-2 py-1 rounded cursor-pointer" hover="bg-white bg-opacity-10">
+    按下空格进入下一页 <carbon:arrow-right class="inline"/>
+  </span>
+</div>
 
 ---
 transition: slide-up
 ---
-
 # 工作内容
 
 - **应用配置-基础配置** - 配置登录页面背景图、Logo、系统名称及系统描述
