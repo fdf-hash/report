@@ -45,17 +45,7 @@ transition: slide-left
 
 # 工作回顾
 
-## 内控1.5
-
-- **资产管理** - 对资产进行管理、使用、维护、费用收取等功能
-<br>
-
-- **职员管理** - 职员信息的录入和维护
-<br>
-
-- **罚没管理** - 维护和完善一些功能
-<br>
-<br>
+<Index/>
 <div class="pt-12">
   <span @click="$slidev.nav.next" class="px-2 py-1 rounded cursor-pointer" hover="bg-white bg-opacity-10">
     按下空格进入下一页 <carbon:arrow-right class="inline"/>
@@ -88,9 +78,9 @@ transition: slide-up
 transition: slide-up
 ---
 
-- **菜单导航栏** - 用户可在本地电脑配置导航栏样式
+- **职员管理** 
 
-<Nav v-click/>
+<Staff v-click/>
 
 <style>
     h1 {
@@ -109,9 +99,10 @@ transition: slide-up
 transition: slide-left
 ---
 
-- **采购管理** - 用于制定采购计划、变更、明细、立项、招投标、合同等流程管理
+- **罚没管理** 
 
-<Caigou v-click/>
+<Famo v-click/>
+
 <style>
     h1 {
       background-color: #2B90B6;
