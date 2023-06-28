@@ -10,6 +10,7 @@
     "@slidev/cli": "^0.39.0",
     "@slidev/theme-default": "*",
     "@slidev/theme-seriph": "*",
+    "echarts": "^5.4.2",
     "sass": "^1.57.1"
   }
 }
