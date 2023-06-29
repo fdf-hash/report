@@ -126,19 +126,28 @@ transition: slide-up
 # 开发中遇到的问题
 
 - **问题1** 
-```html
-  <img src="/resources/static/logo.png" alt="logo">
+  <p>在资产模块-退租管理模块的开发中，需要计算租户退租的时间段，用于计算两个日期之间的月份差异，大概公式为计算出开始时间和结束时间的相差月份，得到的小数除去当月最大天数，得到的结果加上整     数。  如：算出两个时间相差月份为8.04，公式就是8 + (4/当月最大天数)，为最终的租赁时间。
+  </p>
+```ts
+const ksrq = new Date('2023-04-04');
+const tzrq = new Date('2023-05-17');
+const yearDiff = tzrq.getFullYear() - ksrq.getFullYear();
+const monthDiff = tzrq.getMonth() - ksrq.getMonth();
+const dayDiff = tzrq.getDate() - ksrq.getDate();
+let totalMonths = yearDiff * 12 + monthDiff;
+if (dayDiff > 0) {
+  totalMonths += (dayDiff - 1) / new Date(tzrq.getFullYear(), tzrq.getMonth(), 0).getDate();
+} else if (dayDiff === 0) {
+  const ksrqNextMonth = new Date(ksrq.getFullYear(), ksrq.getMonth() + 1, 0);
+  if (tzrq.getTime() >= ksrqNextMonth.getTime()) {
+    totalMonths += 1;
+  }
+} else {
+  const lastMonthEndDate = new Date(tzrq.getFullYear(), tzrq.getMonth(), 0).getDate();
+  totalMonths += (lastMonthEndDate + dayDiff) / lastMonthEndDate;
+}
 
-  //在配置登录页面背景图以及logo中，遇到了前端对静态图片缓存的问题，导致图片不能实时更新
-```
-
-- **解决** 
-```html
-  <img src="/resources/static/logo.png?t=1675161307708" alt="logo">
-
-  <h3>时间戳：t=1675161307708</h3>
-
-  //使用时间戳参数拼接的方式去实时更新图片
+console.log(totalMonths); // 输出：1.4516129032258065
 ```
 <br/>
 
@@ -154,39 +163,33 @@ transition: slide-up
       font-weight:600;
     }
     p{
-      color:block;
-      font-size:14px;
+      margin:0 !important;
+      padding:0 !important;
+      font-size:10px;
     }
 </style>
 
 ---
-transition: slide-up
+transition: slide-left
 ---
-- **问题2** 
-```html
-  菜单导航栏优化中需要动态计算显示区域位置
-```
-
 - **解决** 
+
 ```ts
-  /** 鼠标移入, 打开弹框显示子菜单 */
-    const handleMouseEnter = () => {
-      const dom = menuItemRef?.$el as HTMLLIElement
-      const { top, right, bottom } = dom.getBoundingClientRect()
+/**
+ * 计算相差月份
+ * 适用于租赁合同、退租结算等
+ * @param startTime 开始时间
+ * @param endTime 结束时间
+ * @returns diffMonth
+ */
 
-      let maxHeight = window.innerHeight / 2
-      if (maxHeight + top > window.innerHeight) {
-        menuConfig.bottom = window.innerHeight - bottom
-        menuConfig.top = undefined
-      } else {
-        menuConfig.top = top
-        menuConfig.bottom = undefined
-      }
-
-      menuConfig.open()
-      menuConfig.left = right + 6
-      menuConfig.menus = props.menu.children || []
-    }
+export function diffMonth(startTime: Date, endTime: Date) {
+    const yearDiff: number = endTime.getFullYear() - startTime.getFullYear();
+    const monthDiff: number = endTime.getMonth() - startTime.getMonth();
+    const dayDiff: number = endTime.getDate() - startTime.getDate();
+    const totalMonthDiff: number = yearDiff * 12 + monthDiff + (dayDiff + 1) / (new Date(endTime.getFullYear(), endTime.getMonth() + 1, 0).getDate());
+    return totalMonthDiff
+}
 ```
 
 <style>
@@ -201,37 +204,126 @@ transition: slide-up
       font-weight:600;
     }
     p{
-      color:block;
-      font-size:14px;
+      margin:0 !important;
+      padding:0 !important;
+      font-size:10px;
     }
 </style>
+
+---
+transition: slide-up
+---
+- **问题2** 
+  <p>在el-table-select选择表格弹窗组件中增加筛选项,金额范围选择器el-range中字段的设置,需要{"logic": "between","type": "default"}条件,在业务中台的配置中是自带的,手动配置的话是没有的</p>
+```vue
+ <el-table-select
+    :disabled="!['create', 'update'].includes(formType)"
+    :columns="columns"
+    pagination
+    v-model="contractData"
+    @change="handleTableSelect"
+    :query="formQuery"
+    :column-filter="(column) => !['action'].includes(column.key)"
+    :api="`post:/ic-xmzc/netapi/HTManage/GetHT_SKHTGL?htlx=租赁合同`"
+  >
+    <template #searcher>
+      <el-form
+        :data="formQuery"
+        :query="query"
+      >
+        <el-form-item label="合同金额:">
+          <el-range v-model:model-value="htjeold" clearable />
+        </el-form-item>
+      </el-form>
+    </template>
+  </el-table-select>
+```
+
+
+<style>
+    h1 {
+      background-color: #2B90B6;
+      background-image: block;
+      background-size: 100%;
+      -webkit-background-clip: text;
+      -moz-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -moz-text-fill-color: transparent;
+      font-weight:600;
+    }
+    p{
+      margin:0 !important;
+      padding:0 !important;
+      font-size:10px;
+    }
+</style>
+
+---
+transition: slide-up
+---
+- **解决** 
+<p>使用Vue的数据双向绑定原理,通过Watch监听'htjeold'字段的变化,查看el-range源码返回的数据为数组[1,200]或者[null,200],通过isHasNull方法来校验是否包含null,返回的结果为true||false,true的话就传递数据,相反undefined，将结果赋值给el-table-select的query参数,query绑定的数据为formQuery。</p>
+
+```ts
+const [formQuery] = useFormModel({
+  htje: {value: undefined as any},
+  formCode: {value: "lease_contract"},
+})
+
+let htjeold: any = $ref([])
+watch(
+  () => [htjeold],
+  () => {
+    if (htjeold.length) {
+      formQuery.htje = isHasNull(htjeold)
+        ? undefined
+        : {value: htjeold, logic: "between", type: "default"}
+    }
+  }
+)
+```
+
+
+<style>
+    h1 {
+      background-color: #2B90B6;
+      background-image: block;
+      background-size: 100%;
+      -webkit-background-clip: text;
+      -moz-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -moz-text-fill-color: transparent;
+      font-weight:600;
+    }
+    p{
+      margin:0 !important;
+      padding:0 !important;
+      font-size:10px;
+    }
+</style>
+
+---
+transition: slide-up
+---
+- **结果为[1,200]**
+
+<TableSelect/>
+
+---
+transition: slide-left
+---
+- **结果为[null,200]**
+
+<TableSelectNot/>
 
 ---
 transition: slide-left
 ---
 - **问题3** 
-```html
-  开发流程及对项目代码不熟悉。
-
-  采购管理模块开发中使用公共组件、配置接口API、数据字典、表单标识、上传附件等功能
-```
 
 - **解决** 
 ```ts
-  /**
-   * 熟悉项目代码，了解开发流程。
-   
-   * 使用公共组件快速布局页面
-    *  项目中封装了大量的表格、表单、弹窗等组件，使用方便，能快速实现页面的布局
-    *  通过参数实现对组件的控制及传参等
-    
-   * 配置表单标识提交表单数据、附件标识提交附件
-    *  配置表单标识，实现对表单的提交，数据的审核等
-    *  配置附件标识，实现对上传文件的类型、标题及必填等控制
-  
-   * 配置接口API实现与后端交互
-    *  在组件中可配置API，实现数据展示，对某一模块的API单独配置文件，方便维护
-  */
+ 
 ```
 
 <style>
