@@ -15,10 +15,11 @@ import * as echarts from "echarts"
 
 export default {
   mounted() {
-    this.renderChart()
+      this.renderChart()
   },
   methods: {
     renderChart() {
+      
       const chart = echarts.init(this.$refs.chart)
 
       const options = {

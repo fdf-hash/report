@@ -5,7 +5,7 @@ theme: seriph
 # like them? see https://unsplash.com/collections/94734566/slidev
 background: https://source.unsplash.com/collection/94734566/1920x1080
 # apply any windi css classes to the current slide
-class: 'text-center'
+class: "text-center"
 # https://sli.dev/custom/highlighters.html
 highlighter: shiki
 # show line numbers in code blocks
@@ -42,7 +42,6 @@ Report on work
 ---
 transition: slide-left
 ---
-
 # 工作回顾
 
 <Index/>
@@ -53,11 +52,11 @@ transition: slide-left
 </div>
 
 ---
-transition: slide-up
+ transition: slide-up
 ---
 # 工作内容
 
-- **资产管理** 
+- **资产管理**
 
 <Assets v-click/>
 
@@ -75,10 +74,10 @@ transition: slide-up
 </style>
 
 ---
-transition: slide-up
+ transition: slide-up
 ---
 
-- **职员管理** 
+- **职员管理**
 
 <Staff v-click/>
 
@@ -99,7 +98,7 @@ transition: slide-up
 transition: slide-left
 ---
 
-- **罚没管理** 
+- **罚没管理**
 
 <Famo v-click/>
 
@@ -125,9 +124,10 @@ transition: slide-up
 
 # 开发中遇到的问题
 
-- **问题1** 
+- **问题 1**
   <p>在资产模块-退租管理模块的开发中，需要计算租户退租的时间段，用于计算两个日期之间的月份差异，大概公式为计算出开始时间和结束时间的相差月份，得到的小数除去当月最大天数，得到的结果加上整     数。  如：算出两个时间相差月份为8.04，公式就是8 + (4/当月最大天数)，为最终的租赁时间。
   </p>
+
 ```ts
 const ksrq = new Date('2023-04-04');
 const tzrq = new Date('2023-05-17');
@@ -172,7 +172,8 @@ console.log(totalMonths); // 输出：1.4516129032258065
 ---
 transition: slide-left
 ---
-- **解决** 
+
+- **解决**
 
 ```ts
 /**
@@ -213,19 +214,22 @@ export function diffMonth(startTime: Date, endTime: Date) {
 ---
 transition: slide-up
 ---
-- **问题2** 
+
+
+- **问题 2**
   <p>在el-table-select选择表格弹窗组件中增加筛选项,金额范围选择器el-range中字段的设置,需要{"logic": "between","type": "default"}条件,在业务中台的配置中是自带的,手动配置的话是没有的</p>
+
 ```vue
- <el-table-select
-    :disabled="!['create', 'update'].includes(formType)"
-    :columns="columns"
-    pagination
-    v-model="contractData"
-    @change="handleTableSelect"
-    :query="formQuery"
-    :column-filter="(column) => !['action'].includes(column.key)"
-    :api="`post:/ic-xmzc/netapi/HTManage/GetHT_SKHTGL?htlx=租赁合同`"
-  >
+<el-table-select
+  :disabled="!['create', 'update'].includes(formType)"
+  :columns="columns"
+  pagination
+  v-model="contractData"
+  @change="handleTableSelect"
+  :query="formQuery"
+  :column-filter="(column) => !['action'].includes(column.key)"
+  :api="`post:/ic-xmzc/netapi/HTManage/GetHT_SKHTGL?htlx=租赁合同`"
+>
     <template #searcher>
       <el-form
         :data="formQuery"
@@ -238,7 +242,6 @@ transition: slide-up
     </template>
   </el-table-select>
 ```
-
 
 <style>
     h1 {
@@ -261,7 +264,7 @@ transition: slide-up
 ---
 transition: slide-up
 ---
-- **解决** 
+- **解决**
 <p>使用Vue的数据双向绑定原理,通过Watch监听'htjeold'字段的变化,查看el-range源码返回的数据为数组[1,200]或者[null,200],通过isHasNull方法来校验是否包含null,返回的结果为true||false,true的话就传递数据,相反undefined，将结果赋值给el-table-select的query参数,query绑定的数据为formQuery。</p>
 
 ```ts
@@ -283,6 +286,70 @@ watch(
 )
 ```
 
+<style>
+    h1 {
+      background-color: #2B90B6;
+      background-image: block;
+      background-size: 100%;
+      -webkit-background-clip: text;
+      -moz-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -moz-text-fill-color: transparent;
+      font-weight:600;
+    }
+    p{
+      margin:0 !important;
+      padding:0 !important;
+      font-size:10px;
+    }
+</style>
+
+---
+ transition: slide-up
+---
+
+- **结果为[1,200]**
+
+<TableSelect/>
+
+---
+ transition: slide-left
+---
+
+- **结果为[null,200]**
+
+<TableSelectNot/>
+
+---
+transition: slide-left
+---
+
+- **问题 3**
+  <p>在罚没管理的开发中,吴中区需要选中某一项、全选、合计、批量操作的功能,使用的组件库被优化之后没有该功能,需要自定义</p>
+
+- **解决**
+
+```ts
+// 定义数据
+let headers = [
+  {
+    label: "选择",
+    prop: "checkBox",
+    slotName: "check",
+    default: false,
+  },
+] as TableHeaderItem[]
+```
+```vue
+<!-- 使用插槽 -->
+  <template #column.check="{row}">
+    <el-checkbox
+      class="checkClass"
+      v-model="row.checkBox"
+      @input="handlerChange(row)"
+    ></el-checkbox>
+  </template>
+```
 
 <style>
     h1 {
@@ -305,25 +372,32 @@ watch(
 ---
 transition: slide-up
 ---
-- **结果为[1,200]**
+- **解决**
 
-<TableSelect/>
-
----
-transition: slide-left
----
-- **结果为[null,200]**
-
-<TableSelectNot/>
-
----
-transition: slide-left
----
-- **问题3** 
-
-- **解决** 
 ```ts
- 
+// 在页面加载时监听数据变化,使用ref获取组件实例,用于监听分页数据变化，计算当前页面的合计金额 
+this.$watch(
+  () => this.$refs.table?.$refs.pagination.model.page,
+  (newPage, oldPage) => {
+    this.checkTitle = "取消全选"
+    setTimeout(() => {
+      this.countTotal()
+    }, 500)
+    this.handlerCheckbox()
+  },
+  {deep: true}
+)
+this.$watch(
+  () => this.$refs.table?.$refs.pagination.model.size,
+  (newPage, oldPage) => {
+    this.checkTitle = "取消全选"
+    setTimeout(() => {
+      this.countTotal()
+    }, 500)
+    this.handlerCheckbox()
+  },
+  {deep: true}
+)
 ```
 
 <style>
@@ -344,10 +418,83 @@ transition: slide-left
 </style>
 
 ---
-class: px-20
+transition: slide-left
 ---
+- **解决**
 
-# 代码提交量
+```ts
+// 合计,计算当前页面的金额
+async countTotal() {
+  this.checkPagesHtje = 0
+  this.pagesHtje = 0
+  this.checkTitle = "全选"
+  this.getData().forEach((item: any) => {
+    this.pagesHtje += item.hjje
+  })
+},
+// 计算当前选择的金额,已经当前页面数据是否全部被选中
+async handlerCheckbox() {
+  this.checkSet = this.getData()
+  this.checkTitle = this.checkTitle == "全选" ? "取消全选" : "全选"
+  this.checkPagesHtje = 0
+  if (this.checkTitle == "取消全选") {
+    this.checkSet.forEach((item: any) => {
+      item.checkBox = true
+      this.checkPagesHtje += item.hjje
+    })
+    this.pagesData = this.checkSet
+    return
+  }
+
+  this.checkSet.forEach((item: any) => {
+    item.checkBox = false
+  })
+},
+```
+
+<style>
+    h1 {
+      background-color: #2B90B6;
+      background-image: block;
+      background-size: 100%;
+      -webkit-background-clip: text;
+      -moz-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -moz-text-fill-color: transparent;
+      font-weight:600;
+    }
+    p{
+      color:block;
+      font-size:14px;
+    }
+</style>
+
+---
+transition: slide-left
+---
+- **效果**
+<FamoVideo/>
+
+<style>
+    h1 {
+      background-color: #2B90B6;
+      background-image: block;
+      background-size: 100%;
+      -webkit-background-clip: text;
+      -moz-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -moz-text-fill-color: transparent;
+      font-weight:600;
+    }
+    p{
+      color:block;
+      font-size:14px;
+    }
+</style>
+---
+transition: slide-left
+---
+# 代码概况
 
 <Git/>
 
@@ -369,13 +516,35 @@ class: px-20
 </style>
 
 ---
-preload: false
+transition: slide-left
+---
+# BUG
+
+<Bug/>
+<style>
+    h1 {
+      background-color: #2B90B6;
+      background-image: block;
+      background-size: 100%;
+      -webkit-background-clip: text;
+      -moz-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -moz-text-fill-color: transparent;
+      font-weight:600;
+    }
+    p{
+      color:block;
+      font-size:14px;
+    }
+</style>
+---
+transition: slide-left
 ---
 # 学习
 
-对Vue3结合TS的开发模式有了更加深刻的了解
+对 Vue3 结合 TS 的开发模式有了更加深刻的了解
 
-掌握了一些开发中使用经常使用的API,对组件全局使用、数据配置、仓库数据管理等有了新的认知
+掌握了一些开发中使用经常使用的 API,对组件全局使用、数据配置、仓库数据管理等有了新的认知
 
 在代码书写中按照严格模式保证页面不报红,不报错,代码注释清晰,逻辑清晰,方便后期维护
 
@@ -455,34 +624,34 @@ const final = {
 </style>
 
 ---
-preload: false
----
+
+## preload: false
 
 - **改进**
 
 在后续的工作中继续完善、优化代码,提高代码可读性
-  <br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;1、减少代码量，逻辑清晰，出现bug能快速定位问题所在并修复
-  <br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;2、代码书写多使用英文命名，通俗易懂
-  <br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;3、根据需求定制组件化，方便后期维护
-  <br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;4、自我检查代码中可能存在的漏铜
-  <br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;5、工作中多学习新知识，强化自身，紧跟技术发展的步伐
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;1、减少代码量，逻辑清晰，出现 bug 能快速定位问题所在并修复
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;2、代码书写多使用英文命名，通俗易懂
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;3、根据需求定制组件化，方便后期维护
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;4、自我检查代码中可能存在的漏铜
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;5、工作中多学习新知识，强化自身，紧跟技术发展的步伐
 
 加强团队沟通
-  <br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;1、确定沟通的方法(开会、通讯工具)，明确负责沟通的人、沟通的对象
-  <br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;2、沟通中明确原型和设计图，按照设计图开发
-  <br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;3、沟通后制定任务计划，开发周期、时间节点等
-  <br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;4、后期出现bug，及时修复，不理解、不明确的地方及时询问测试、产品
-  <br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;5、工作中遇到问题先自行寻找解决方式，储备新知识，在无法解决时及时询问
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;1、确定沟通的方法(开会、通讯工具)，明确负责沟通的人、沟通的对象
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;2、沟通中明确原型和设计图，按照设计图开发
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;3、沟通后制定任务计划，开发周期、时间节点等
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;4、后期出现 bug，及时修复，不理解、不明确的地方及时询问测试、产品
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;5、工作中遇到问题先自行寻找解决方式，储备新知识，在无法解决时及时询问
 
 <div class="w-60 relative mt-6">
   <div class="relative w-40 h-40">
@@ -558,16 +727,19 @@ const final = {
 </style>
 
 ---
+
 theme: seriph
 background: https://source.unsplash.com/collection/94734566/1920x1080
 class: 'text-center'
 highlighter: shiki
 lineNumbers: false
 drawings:
-  persist: false
+persist: false
 transition: fade-out
 css: unocss
+
 ---
+
 # 谢 谢 观 看
 
 Thanks for watching
