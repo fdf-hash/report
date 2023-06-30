@@ -1,6 +1,6 @@
 <template>
-  <div class="chart-container">
-    <div class="chart" ref="chart"></div>
+  <div class="staff-container">
+    <div class="staff" ref="staff"></div>
   </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
   },
   methods: {
     renderChart() {
-      const chart = echarts.init(this.$refs.chart)
+      const staff = echarts.init(this.$refs.staff)
 
       const options = {
         tooltip: {
@@ -66,7 +66,7 @@ export default {
         ],
       }
 
-      chart.setOption(options)
+      staff.setOption(options)
     },
   },
 }
@@ -86,7 +86,7 @@ export default {
     }
   }
 }
-.chart-container {
+.staff-container {
   width: 100%;
   height: 400px;
   display: flex;
@@ -94,7 +94,7 @@ export default {
   align-items: center;
 }
 
-.chart {
+.staff {
   width: 100%;
   height: 100%;
 }

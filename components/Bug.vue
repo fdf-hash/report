@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div id="chart" style="width: 500px; height: 400px;margin: 0 auto;"></div>
+      <div id="bug" style="width: 500px; height: 400px;margin: 0 auto;"></div>
     </div>
   </template>
   
@@ -16,7 +16,7 @@
       ]
   
       // 初始化echarts实例
-      var chart = echarts.init(document.getElementById("chart"))
+      var bug = echarts.init(document.getElementById("bug"))
   
       // 配置项
       var options = {
@@ -33,13 +33,13 @@
       }
   
       // 渲染图表
-      chart.setOption(options)
+      bug.setOption(options)
     },
   }
   </script>
   
   <style>
-  #chart {
+  #bug {
     width: 600px;
     height: 400px;
   }

@@ -4,8 +4,8 @@
       <div>6个主模块</div>
       <div>22个子模块</div>
     </div>
-    <div class="chart-container">
-      <div class="chart" ref="chart"></div>
+    <div class="assets-container">
+      <div class="assets" ref="assets"></div>
     </div>
   </div>
 </template>
@@ -20,7 +20,7 @@ export default {
   methods: {
     renderChart() {
       
-      const chart = echarts.init(this.$refs.chart)
+      const assets = echarts.init(this.$refs.assets)
 
       const options = {
         tooltip: {
@@ -108,7 +108,7 @@ export default {
         ],
       }
 
-      chart.setOption(options)
+      assets.setOption(options)
     },
   },
 }
@@ -128,7 +128,7 @@ export default {
     }
   }
 }
-.chart-container {
+.assets-container {
   width: 100%;
   height: 400px;
   display: flex;
@@ -136,7 +136,7 @@ export default {
   align-items: center;
 }
 
-.chart {
+.assets {
   width: 100%;
   height: 100%;
 }

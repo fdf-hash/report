@@ -21,8 +21,8 @@
       分页新增全选、单选、批量开票、选中合计、默认合计 <br />
       汇总缴款书增加账单状态范围列表 <br />
     </div>
-    <div class="chart-container">
-      <div class="chart" ref="chart"></div>
+    <div class="famo-container">
+      <div class="famo" ref="famo"></div>
     </div>
   </div>
 </template>
@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     renderChart() {
-      const chart = echarts.init(this.$refs.chart)
+      const famo = echarts.init(this.$refs.famo)
 
       const options = {
         tooltip: {
@@ -97,7 +97,7 @@ export default {
         ],
       }
 
-      chart.setOption(options)
+      famo.setOption(options)
     },
   },
 }
@@ -127,7 +127,7 @@ export default {
     }
   }
 }
-.chart-container {
+.famo-container {
   width: 100%;
   height: 400px;
   display: flex;
@@ -135,7 +135,7 @@ export default {
   align-items: center;
 }
 
-.chart {
+.famo {
   width: 100%;
   height: 100%;
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="chart" style="width: 500px; height: 400px; margin: 0 auto"></div>
+    <div id="git" style="width: 500px; height: 400px; margin: 0 auto"></div>
   </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
       ]
 
       // 初始化echarts实例
-      var chart = echarts.init(document.getElementById("chart"))
+      var git = echarts.init(document.getElementById("git"))
 
       // 配置项
       var options = {
@@ -37,14 +37,14 @@ export default {
       }
 
       // 渲染图表
-      chart.setOption(options)
+      git.setOption(options)
     }, 500)
   },
 }
 </script>
 
 <style>
-#chart {
+#git {
   width: 600px;
   height: 400px;
 }
