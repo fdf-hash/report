@@ -1,0 +1,16 @@
+{
+  "name": "report",
+  "private": true,
+  "scripts": {
+    "build": "slidev build",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^0.39.0",
+    "@slidev/theme-default": "*",
+    "@slidev/theme-seriph": "*",
+    "echarts": "^5.4.2",
+    "sass": "^1.57.1"
+  }
+}

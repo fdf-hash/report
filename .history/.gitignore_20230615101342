@@ -1,8 +1,7 @@
 node_modules
+.history
 .DS_Store
-
 dist
-*.zip
 *.local
 index.html
 .remote-assets
