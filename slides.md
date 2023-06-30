@@ -543,13 +543,13 @@ transition: slide-left
 ---
 # 学习
 
-对 Vue3 结合 TS 的开发模式有了更加深刻的了解
+##### 能独立搭建项目框架，使用罚没框架开发了一个U8过账的项目
 
-掌握了一些开发中使用经常使用的 API,对组件全局使用、数据配置、仓库数据管理等有了新的认知
+##### 对组件的实例化Ref操作有了跟深入的理解和认识
 
-在代码书写中按照严格模式保证页面不报红,不报错,代码注释清晰,逻辑清晰,方便后期维护
+##### 对Vue3的一些API：watch,ref,shallowRef等双向数据绑定有了新的认知
 
-多使用组件化开发，便于后期维护
+##### 在项目中遇到开发问题能快速定位并找到解决方法
 
 <div class="w-60 relative mt-6">
   <div class="relative w-40 h-40">
@@ -618,41 +618,17 @@ const final = {
       -moz-text-fill-color: transparent;
       font-weight:600;
     }
-    p{
-      color:block;
-      font-size:14px;
+    h5,p{
+      font-family:'黑体';
+      color:block !important;
+      font-size:12px !important;
     }
 </style>
 
 ---
-
-## preload: false
-
+transition: slide-left
+---
 - **改进**
-
-在后续的工作中继续完善、优化代码,提高代码可读性
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;1、减少代码量，逻辑清晰，出现 bug 能快速定位问题所在并修复
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;2、代码书写多使用英文命名，通俗易懂
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;3、根据需求定制组件化，方便后期维护
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;4、自我检查代码中可能存在的漏铜
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;5、工作中多学习新知识，强化自身，紧跟技术发展的步伐
-
-加强团队沟通
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;1、确定沟通的方法(开会、通讯工具)，明确负责沟通的人、沟通的对象
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;2、沟通中明确原型和设计图，按照设计图开发
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;3、沟通后制定任务计划，开发周期、时间节点等
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;4、后期出现 bug，及时修复，不理解、不明确的地方及时询问测试、产品
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;5、工作中遇到问题先自行寻找解决方式，储备新知识，在无法解决时及时询问
 
 <div class="w-60 relative mt-6">
   <div class="relative w-40 h-40">
