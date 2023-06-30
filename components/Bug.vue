@@ -1,5 +1,6 @@
 <template>
     <div>
+      <img src="../static/img/1688110555167.jpg" alt="">
       <div id="bug" style="width: 500px; height: 400px;margin: 0 auto;"></div>
     </div>
   </template>
@@ -10,9 +11,8 @@
   export default {
     mounted() {
       var data = [
-        ["时间", "BUG问题数量"],
-        ["2023", 100],
-        ["2022", 0],
+        ["时间","BUG数量","文档问题","沟通问题"],
+        ["2023", 100,46,]
       ]
   
       // 初始化echarts实例
@@ -29,6 +29,8 @@
         yAxis: {},
         series: [
           {type: "bar", label: {show: true, position: "top"}},
+          {type: "bar", label: {show: true, position: "top"}},
+
         ],
       }
   
@@ -39,6 +41,10 @@
   </script>
   
   <style>
+  img{
+    width: 100%;
+    height: auto;
+  }
   #bug {
     width: 600px;
     height: 400px;
