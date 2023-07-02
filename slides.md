@@ -548,9 +548,8 @@ transition: slide-left
 ##### 对组件的实例化Ref操作有了跟深入的理解和认识
 
 ##### 对Vue3的一些API：watch,ref,shallowRef等双向数据绑定有了新的认知
-##### 对Vue3的一些API：watch,ref,shallowRef等双向数据绑定有了新的认知
 
-##### 在项目中遇到开发问题能快速定位并找到解决方法
+##### 对开发中遇到的问题知道了更多的解决方案,如遇到报错根据提示信息,根据关键字去查找问题,git的isseus中去查找关键字,查看源码等
 
 <div class="w-60 relative mt-6">
   <div class="relative w-40 h-40">
@@ -631,6 +630,18 @@ transition: slide-left
 ---
 - **改进**
 
+##### 独立阅读源码的能力有待提高
+
+##### 对某些技术的掌握还不够,还需要多了解
+
+##### 加强自身学习,多看开源项目源码,参考核心代码书写逻辑,储备知识
+
+##### 对一些核心代码、功能代码等逻辑代码的处理还不够完美,有的代码不够精简,需要改进
+
+##### 在开发中尽量多自测自己的逻辑代码,比如不同的输入顺序、输入框限制、逻辑代码运行的速度等,尽量早发现，早解决
+
+##### 对产品、测试提出的问题及时反馈并解决
+
 <div class="w-60 relative mt-6">
   <div class="relative w-40 h-40">
     <img
@@ -698,9 +709,10 @@ const final = {
       -moz-text-fill-color: transparent;
       font-weight:600;
     }
-    p{
-      color:block;
-      font-size:14px;
+    h5,p{
+      font-family:'黑体';
+      color:block !important;
+      font-size:12px !important;
     }
 </style>
 
